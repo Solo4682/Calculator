@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+
+    <title> CalcForge | Scientific Calculator </title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script type="module" src="js/main.js"></script>
+</head>
+
+<body>
+    <div class = "app-container">
+
+        <header class = "app-header">
+
+            <div class = "brand">
+                <div class = "brand-icon"> CF </div>
+
+                <div class = "brand-info">
+                    <h1> CalcForge </h1>
+                    <p> Precision meets simplicity. </p>
+                </div>
+            </div>
+
+            <div class = "header-status">
+                <span class = "status-dot"></span>
+                <span> CALC ENGINE </span>
+            </div>
+        </header>
+
+        <main class = "workspace">
+            <section class = "calculator-panel">
+                <div class = "panel-heading">
+                    <div>
+                        <p class = "eyebrow"> CALCULATION WORKSPACE </p>
+                        <h2> Scientific Calculator</h2>
+                    </div>
+
+                    <button id = "clear-button" class = "secondary-button"
+                        type = "button">
+                        Clear
+                    </button>
+                </div>
+
+                <div class = "calculator-display">
+
+                        <div class = "display-top">
+                            <span> EXPRESSION</span>
+                            <span id = "angle-mode"> DEG </span>
+                        </div>
+
+                        <div
+                            id = "expression-display"
+                            class = "expression-display"
+                            aria-label = "Current expression"
+                        > 0 </div>
+
+                        <div class = "display-divider"></div>
+
+                        <div class = "result-row">
+                            <span class = "result-label"> RESULT </span>
+
+                            <output
+                                id = "result-display"
+                                aria-live = "polite"
+                            > 0 </output>
+                        </div>
+                </div>
+
+                <nav class = "calculator-modes"
+                    aria-label = "Calculator modes">
+
+                    <button class = "mode-button active"
+                        type = "button" data-mode = "basic">
+                        Basic
+                    </button>
+
+                    <button class = "mode-button"
+                        type = "button" data-mode = "scientific">
+                        Scientific
+                    </button>
+
+                    <button class = "mode-button"
+                        type = "button" data-mode = "equations">
+                        Equations
+                    </button>
+
+                    <button class = "mode-button"
+                        type = "button" data-mode = "matrices">
+                        Matrices
+                    </button>
+
+                </nav>
+                   
+                    <div class="calculator-keypad">
+
+                        <button class="calc-key function-key" type="button" data-action="sin">sin</button>
+                        <button class="calc-key function-key" type="button" data-action="cos">cos</button>
+                        <button class="calc-key function-key" type="button" data-action="tan">tan</button>
+                        <button class="calc-key function-key" type="button" data-action="log">log</button>
+
+                        <button class="calc-key function-key" type="button" data-action="sqrt">√</button>
+                        <button class="calc-key" type="button" data-value="(">(</button>
+                        <button class="calc-key" type="button" data-value=")">)</button>
+                        <button class="calc-key" type="button" data-value="^">xʸ</button>
+
+                        <button class="calc-key number-key" type="button" data-value="9">9</button>
+                        <button class="calc-key number-key" type="button" data-value="8">8</button>
+                        <button class="calc-key number-key" type="button" data-value="7">7</button>
+                        <button class="calc-key operator-key" type="button" data-value="/">÷</button>
+
+                        <button class="calc-key number-key" type="button" data-value="6">6</button>
+                        <button class="calc-key number-key" type="button" data-value="5">5</button>
+                        <button class="calc-key number-key" type="button" data-value="4">4</button>
+                        <button class="calc-key operator-key" type="button" data-value="*">×</button>
+
+                        <button class="calc-key number-key" type="button" data-value="3">3</button>
+                        <button class="calc-key number-key" type="button" data-value="2">2</button>
+                        <button class="calc-key number-key" type="button" data-value="1">1</button>
+                        <button class="calc-key operator-key" type="button" data-value="+">+</button>
+
+                        <button class="calc-key number-key" type="button" data-value="0">0</button>
+                        <button class="calc-key number-key" type="button" data-value=".">.</button>
+                        <button class="calc-key" type="button" data-action="backspace" aria-label="Delete last character">⌫</button>
+                        <button class="calc-key operator-key" type="button" data-value="-">−</button>
+
+                        <button class="calc-key equals-key" type="button" data-action="calculate">=</button>
+
+                    </div>
+
+                    <p class = "keyboard-hint">
+                    TIP : You can use your keyboard to 
+                    perform calculations.
+                </p>
+            
+            </section>
+
+            <aside class = "history-panel">
+
+                <div class = "panel-heading">
+                    <div>
+                        <p class = "eyebrow"> YOUR PREVIOUS WORK </p>
+                        <h2> History </h2>
+                    </div>
+
+                    <button 
+                        id = "clear-history"
+                        class = "icon-button"
+                        type = "button"
+                        aria-label = "Clear calculation history" >
+                        ⌫
+                    </button>
+                </div>
+
+                <div id = "history-list" class = "history-list">
+
+                    <div class = "history-empty">
+                        <span class = "history-symbol">
+                        ↻
+                        </span>
+
+                        <h3> No calculations yet. </h3>
+                        <p> Your calculations will appear herw as you work. </p>
+
+                    </div>
+
+                </div>
+
+                <div class = "history-footer">
+                    <span class = "status-dot"></span>
+                    <span> HISTORY READY </span>
+                </div>
+
+            </aside>
+
+        </main>
+
+        <footer class = "app-footer">
+            
+            <p> CALCFORGE <span>.</span> BUILT FOR PRECISION </p>
+            <p> v1.0 </p>
+
+        </footer>
+
+    </div>
+
+</body>
+</html>
+
