@@ -5,6 +5,8 @@ Consists of different modes such as basic, scientific, equation and matrix calcu
 
 (Tho for now only basic and scientific are done)
 
+The calculator was created using CSS, HTML and JavaScript.
+
 Implemented a local Storage system so that the files doesn't lookse information on refreshing.
 Also implemented a history portal which shows the last 20 calculations done by the user in the history-list. 
 
