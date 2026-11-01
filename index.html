@@ -92,19 +92,12 @@
 
                 </nav>
                    
-                    <div class="calculator-keypad">
+                    <div class="keypad-section active" data-keypad = "basic">
  
-                        <button id="clear-button" class="calc-key equals-key"> AC </button>
-
-                        <button class="calc-key function-key" type="button" data-action="sin">sin</button>
-                        <button class="calc-key function-key" type="button" data-action="cos">cos</button>
-                        <button class="calc-key function-key" type="button" data-action="tan">tan</button>
-                        <button class="calc-key function-key" type="button" data-action="log">log</button>
-
-                        <button class="calc-key function-key" type="button" data-action="sqrt">√</button>
                         <button class="calc-key" type="button" data-value="(">(</button>
                         <button class="calc-key" type="button" data-value=")">)</button>
-                        <button class="calc-key" type="button" data-value="^">xʸ</button>
+                        <button class="calc-key" type="button" data-action="backspace" aria-label="Delete last character">⌫</button>
+                        <button id="clear-button" class="calc-key equals-key"> AC </button>
 
                         <button class="calc-key number-key" type="button" data-value="9">9</button>
                         <button class="calc-key number-key" type="button" data-value="8">8</button>
@@ -123,9 +116,7 @@
 
                         <button class="calc-key number-key" type="button" data-value="0">0</button>
                         <button class="calc-key number-key" type="button" data-value=".">.</button>
-                        <button class="calc-key" type="button" data-action="backspace" aria-label="Delete last character">⌫</button>
                         <button class="calc-key operator-key" type="button" data-value="-">−</button>
-                   
                         <button class="calc-key equals-key" type="button" data-action="calculate">=</button>
 
                     </div>

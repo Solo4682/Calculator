@@ -1,6 +1,8 @@
 const expressionDisplay = document.getElementById("expression-display");
 const resultDisplay = document.getElementById("result-display");
 const calculatorButtons = document.querySelectorAll(".calc-key");
+const historyList = document.getElementById("history-list");
+const clearHistoryButton = document.getElementById ("clear-history");
 
 console.log("CalcForge JavaScript loaded successfully");
 
@@ -28,6 +30,10 @@ const clearButton = document.getElementById("clear-button");
                 const result = Math.sqrt(Number(currentExpression));
 
                 if(Number.isFinite(result)) {
+                    const formattedResult = Number(result.toFixed(10)).toString();
+
+                    addHistory("√(" + currentExpression + ")", formattedResult);
+
                     expressionDisplay.textContent = Number(result.toFixed(10)).toString();
                     resultDisplay.textContent = result.toFixed(10);
                 }
@@ -47,9 +53,17 @@ const clearButton = document.getElementById("clear-button");
                 
                 const result = Math.sin(radians);
 
-                expressionDisplay.textContent = Number(result.toFixed(10)).toString();
-                resultDisplay.textContent = result.toFixed(10);
+                if(Number.isFinite(result)) {
+                    const formattedResult = Number(result.toFixed(10)).toString();
 
+                    addHistory("sin(" + angle + "" + currentAngleMode + ")", formattedResult);
+
+                    expressionDisplay.textContent = Number(result.toFixed(10)).toString();
+                    resultDisplay.textContent = result.toFixed(10);
+                }
+                else{
+                    resultDisplay.textContent = "Error";
+                }
                 return;
             }
 
@@ -62,8 +76,17 @@ const clearButton = document.getElementById("clear-button");
 
                 const result = Math.cos(radians);
 
-                expressionDisplay.textContent = Number(result.toFixed(10)).toString();
-                resultDisplay.textContent = result.toFixed(10);
+                if(Number.isFinite(result)) {
+                    const formattedResult = Number(result.toFixed(10)).toString();
+
+                    addHistory("sin(" + angle + "" + currentAngleMode + ")", formattedResult);
+
+                    expressionDisplay.textContent = Number(result.toFixed(10)).toString();
+                    resultDisplay.textContent = result.toFixed(10);
+                }
+                else{
+                    resultDisplay.textContent = "Error";
+                }
 
                 return;
             }
@@ -77,8 +100,17 @@ const clearButton = document.getElementById("clear-button");
 
                 const result = Math.tan(radians);
 
-                expressionDisplay.textContent = Number(result.toFixed(10)).toString();
-                resultDisplay.textContent = result.toFixed(10);
+                if(Number.isFinite(result)) {
+                    const formattedResult = Number(result.toFixed(10)).toString();
+
+                    addHistory("sin(" + angle + "" + currentAngleMode + ")", formattedResult);
+
+                    expressionDisplay.textContent = Number(result.toFixed(10)).toString();
+                    resultDisplay.textContent = result.toFixed(10);
+                }
+                else {
+                    resultDisplay.textContent = "Error";
+                }
 
                 return;
             }
@@ -89,6 +121,10 @@ const clearButton = document.getElementById("clear-button");
                 const result = Math.log10(number);
 
                 if (Number.isFinite(result)) {
+                    const formattedResult = Number(result.toFixed(10)).toString();
+
+                    addHistory("log(" + number + ")", formattedResult);
+                    
                     expressionDisplay.textContent = Number(result.toFixed(10)).toString();
                     resultDisplay.textContent = result.toFixed(10);
                 }
@@ -107,6 +143,7 @@ const clearButton = document.getElementById("clear-button");
                 resultDisplay.textContent = result;
                 
                 if (result !== "Error"){
+                    addHistory(expression, result);
                     expressionDisplay.textContent = result.toString();
                 }
 
@@ -166,6 +203,68 @@ function calculateExpression(expression) {
         return "Error";
     }
 }
+
+function addHistory(expression, result, save = true) {
+
+    const emptyMessage = historyList.querySelector(".history-empty");
+
+    if(emptyMessage) {
+        emptyMessage.remove();
+    }
+
+    const historyEntry = document.createElement("button");
+    historyEntry.type = "button";
+    historyEntry.classList.add("history-entry");
+
+    const expressionText = document.createElement("span");
+    expressionText.classList.add("history-expression");
+    expressionText.textContent = expression;
+
+    const resultText = document.createElement("span");
+    resultText.classList.add("history-result");
+    resultText.textContent = "= " + result;
+
+    historyEntry.append(expressionText, resultText);
+
+    historyEntry.addEventListener("click", () => {
+        expressionDisplay.textContent = result;
+        resultDisplay.textContent = result;
+    });
+
+    historyList.prepend(historyEntry);
+    let savedHistory = JSON.parse(localStorage.getItem("calcHistory")) || [];
+    if(save) {
+            savedHistory.unshift ({
+            expression: expression,
+            result: result
+        });
+
+        savedHistory = savedHistory.slice(0,20);
+        localStorage.setItem("calcHistory", JSON.stringify(savedHistory));
+    }
+        
+    while(historyList.querySelectorAll(".history-entry").length>20){
+        historyList.lastElementChild.remove();
+    }
+}
+
+clearHistoryButton.addEventListener("click", () => {
+    localStorage.removeItem("calcHistory");
+
+    historyList.innerHTML = `
+        <div class = "history-empty">
+            <span class = "history-symbol"> ↻ </span>
+            <h3> No calculations yet. </h3>
+            <p> Your calculations will apear here as you work. </p>
+        </div>
+    `;
+});
+
+const savedHistory = JSON.parse(localStorage.getItem("calcHistory")) || [];
+
+savedHistory.reverse().forEach(entry => {
+    addHistory(entry.expression,entry.result,false);
+});
 
 document.addEventListener("keydown", (event) => {
 

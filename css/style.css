@@ -171,6 +171,17 @@ button:focus-visible {
     gap: 12px;
 }
 
+.keypad-section {
+    display: none;
+}
+
+.keypad-section.active {
+    display: grid;
+    grid-template-columns: repeat(4,minmax(0,1fr));
+    gap: 12px;
+    width: 100%;
+}
+
 .calc-key {
     min-height: 65px;
     padding: 14px 8px;
@@ -216,7 +227,6 @@ button:focus-visible {
     border-color: var(--accent-cyan);
     font-size: 22px;
     font-weight: 800;
-    grid-column: 1/-1;
 }
 
 .equals-key:hover {
@@ -544,5 +554,13 @@ button:focus-visible {
     .app-footer {
         flex-direction: column;
         text-align: center;
+    }
+
+    .history-expression {
+        color: var(--text-secondary);       
+    }
+
+    .history-result{
+        color: var(--text-primary);
     }
 }
