@@ -13,3 +13,6 @@ To open the File :
 
 Downloand the git hub repo (sadly havent yet introduced a live test demo server for this project)
 Use live-server extension and open the file main.js
+
+
+[[ NOTICE : THE PROJECT IS ONLY COMPLETED UPTO BASIC AND SCIENTIFIFC CALCULATOR MODELS> FURTHER MODELS WILL BE INTRODUCED SOON IN THE UPCOMING WEEKS. ]]
