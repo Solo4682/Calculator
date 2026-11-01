@@ -40,24 +40,20 @@
                         <h2> Scientific Calculator</h2>
                     </div>
 
-                    <button id = "clear-button" class = "secondary-button"
-                        type = "button">
-                        Clear
-                    </button>
                 </div>
 
                 <div class = "calculator-display">
 
                         <div class = "display-top">
                             <span> EXPRESSION</span>
-                            <span id = "angle-mode"> DEG </span>
+                            <span id = "angle-mode" type = "button"> DEG </span>
                         </div>
 
                         <div
                             id = "expression-display"
                             class = "expression-display"
                             aria-label = "Current expression"
-                        > 0 </div>
+                        ></div>
 
                         <div class = "display-divider"></div>
 
@@ -97,6 +93,8 @@
                 </nav>
                    
                     <div class="calculator-keypad">
+ 
+                        <button id="clear-button" class="calc-key equals-key"> AC </button>
 
                         <button class="calc-key function-key" type="button" data-action="sin">sin</button>
                         <button class="calc-key function-key" type="button" data-action="cos">cos</button>
@@ -127,7 +125,7 @@
                         <button class="calc-key number-key" type="button" data-value=".">.</button>
                         <button class="calc-key" type="button" data-action="backspace" aria-label="Delete last character">⌫</button>
                         <button class="calc-key operator-key" type="button" data-value="-">−</button>
-
+                   
                         <button class="calc-key equals-key" type="button" data-action="calculate">=</button>
 
                     </div>
