@@ -1,4 +1,6 @@
 const historyList = document.getElementById("history-list");
+const expressionDisplay = document.getElementById("expression-display");
+const resultDisplay = document.getElementById("result-display");
 
 export function addHistory(expression, result, save = true) {
     const emptyMessage = historyList.querySelector(".history-empty");

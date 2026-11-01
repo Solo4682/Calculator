@@ -1,6 +1,12 @@
+import { addHistory, initialiseHistory } from "./history.js";
+import { calculateExpression } from "./basic.js";
+import { calculateScientific } from "./scientific.js";
+
+
 const expressionDisplay = document.getElementById("expression-display");
 const resultDisplay = document.getElementById("result-display");
 const calculatorButtons = document.querySelectorAll(".calc-key");
+    initialiseHistory();
 
 console.log("CalcForge JavaScript loaded successfully");
 
@@ -16,120 +22,23 @@ const angleMode = document.getElementById("angle-mode");
 
 const clearButton = document.getElementById("clear-button");
 
-    calculatorButtons.forEach(button => {
-
+    calculatorButtons.forEach((button) => {
         button.addEventListener("click", () => {
-
-            const value = button.dataset.value;
             const action = button.dataset.action;
+            const value = button.dataset.value;
 
-            if (action == "sqrt") {
-                const currentExpression = expressionDisplay.textContent;
-                const result = Math.sqrt(Number(currentExpression));
+            if(["sqrt", "sin", "cos", "tan", "log"].includes(action)) {
 
-                if(Number.isFinite(result)) {
-                    const formattedResult = Number(result.toFixed(10)).toString();
+                const calculation = calculateScientific(action,expressionDisplay.textContent,currentAngleMode);
 
-                    addHistory("√(" + currentExpression + ")", formattedResult);
-
-                    expressionDisplay.textContent = Number(result.toFixed(10)).toString();
-                    resultDisplay.textContent = result.toFixed(10);
+                if(calculation.result !== "Error") {
+                    expressionDisplay.textContent = calculation.result.toString();
+                    resultDisplay.textContent = calculation.result.toString();
+                    addHistory(calculation.expression, calculation.result);
                 }
                 else {
-                    resultDisplay.textContent = "Error";
+                    resultDisplay.textContent = "Error" ;
                 }
-
-                return; 
-            }
-
-            if (action == "sin") {
-                
-                const angle = Number(expressionDisplay.textContent);
-                const radians = currentAngleMode === "DEG"
-                    ? angle * Math.PI/180
-                    : angle;
-                
-                const result = Math.sin(radians);
-
-                if(Number.isFinite(result)) {
-                    const formattedResult = Number(result.toFixed(10)).toString();
-
-                    addHistory("sin(" + angle + "" + currentAngleMode + ")", formattedResult);
-
-                    expressionDisplay.textContent = Number(result.toFixed(10)).toString();
-                    resultDisplay.textContent = result.toFixed(10);
-                }
-                else{
-                    resultDisplay.textContent = "Error";
-                }
-                return;
-            }
-
-            if (action == "cos") {
-                
-                const angle = Number(expressionDisplay.textContent);
-                const radians = currentAngleMode === "DEG"
-                    ? angle * Math.PI/180
-                    : angle;
-
-                const result = Math.cos(radians);
-
-                if(Number.isFinite(result)) {
-                    const formattedResult = Number(result.toFixed(10)).toString();
-
-                    addHistory("sin(" + angle + "" + currentAngleMode + ")", formattedResult);
-
-                    expressionDisplay.textContent = Number(result.toFixed(10)).toString();
-                    resultDisplay.textContent = result.toFixed(10);
-                }
-                else{
-                    resultDisplay.textContent = "Error";
-                }
-
-                return;
-            }
-
-            if (action == "tan") {
-
-                const angle = Number(expressionDisplay.textContent);
-                const radians = currentAngleMode === "DEG"
-                    ? angle * Math.PI/180
-                    : angle;
-
-                const result = Math.tan(radians);
-
-                if(Number.isFinite(result)) {
-                    const formattedResult = Number(result.toFixed(10)).toString();
-
-                    addHistory("sin(" + angle + "" + currentAngleMode + ")", formattedResult);
-
-                    expressionDisplay.textContent = Number(result.toFixed(10)).toString();
-                    resultDisplay.textContent = result.toFixed(10);
-                }
-                else {
-                    resultDisplay.textContent = "Error";
-                }
-
-                return;
-            }
-
-            if (action == "log") {
-                
-                const number = Number(expressionDisplay.textContent);
-                const result = Math.log10(number);
-
-                if (Number.isFinite(result)) {
-                    const formattedResult = Number(result.toFixed(10)).toString();
-
-                    addHistory("log(" + number + ")", formattedResult);
-                    
-                    expressionDisplay.textContent = Number(result.toFixed(10)).toString();
-                    resultDisplay.textContent = result.toFixed(10);
-                }
-                else {
-                    resultDisplay.textContent = "Error";
-                }
-
                 return;
             }
 
@@ -174,33 +83,6 @@ const clearButton = document.getElementById("clear-button");
         resultDisplay.textContent = "0";
 });
 
-function calculateExpression(expression) {
-
-    try {
-        const numbers = expression.match(/\d+(\.\d+)?/g);
-
-        if (!expression.trim () || /[+\-*/.]$/.test(expression.trim())) {
-            throw new Error ("Incomplete expression");
-        }
-        if(/[+*/]{2,}|-{2,}/.test(expression.replace(/\s/g, ""))) {
-            throw new Error ("Invalid operators");
-        }
-        if (!numbers) {
-            throw new Error ("Invalid expression");
-        }
-
-        const result = Function ('"use strict"; return ( '  +expression.replace(/\^/g, "**") + ')')();
-
-        if(!Number.isFinite(result)) {
-            throw new Error("Invalid result");
-        }
-
-        return Number(result.toFixed(10));
-    
-    } catch (error) {
-        return "Error";
-    }
-}
 
 document.addEventListener("keydown", (event) => {
 
@@ -224,6 +106,30 @@ document.addEventListener("keydown", (event) => {
     else if (key == "Escape") {
         clearButton.click();
     }
+});
+
+const modeButtons = document.querySelectorAll (".mode-button");
+const keypadSections = document.querySelectorAll(".keypad-section");
+
+modeButtons.forEach(button => {
+
+    button.addEventListener ("click", () => {
+
+        const selectedMode = button.dataset.mode;
+
+        modeButtons.forEach(modeButton => {
+            modeButton.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        keypadSections.forEach(section => {
+            section.classList.toggle (
+                "active",
+                section.dataset.keypad === selectedMode
+            );
+        });
+    });
 });
 
 

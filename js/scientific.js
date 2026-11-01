@@ -40,9 +40,31 @@ export function calculateScientific(action, expression, angleMode) {
         historyExpression = `tan(${number} ${angleMode})`;
     }
 
-    else if (action == "log") {
-        result = Math.log10(number);
-        historyExpression = `log${number})`;
+    else if (action == "sin-inverse") {
+        result = Math.asin(number);
+        historyExpression = `sin⁻¹(${number})`;
+
+        if(angleMode == "DEG") {
+            result = result * 180 / Math.PI;
+        }
+    }
+
+    else if (action == "cos-inverse") {
+        result = Math.acos(number);
+        historyExpression = `cos⁻¹(${number})`; 
+
+        if(angleMode == "DEG") {
+            result = result * 180 / Math.PI;
+        }
+    }
+
+    else if (action == "tan-inverse") {
+        result = Math.atan(number);
+        historyExpression = `tan⁻¹(${number})`;
+
+        if(angleMode == "DEG") {
+            result = result * 180 / Math.PI;
+        }
     }
 
     else {
