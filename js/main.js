@@ -27,7 +27,7 @@ const clearButton = document.getElementById("clear-button");
             const action = button.dataset.action;
             const value = button.dataset.value;
 
-            if(["sqrt", "sin", "cos", "tan", "log"].includes(action)) {
+            if(["sqrt", "sin", "cos", "tan", "log", "sin-inverse", "cos-inverse", "tan-inverse"].includes(action)) {
 
                 const calculation = calculateScientific(action,expressionDisplay.textContent,currentAngleMode);
 

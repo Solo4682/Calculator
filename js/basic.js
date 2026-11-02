@@ -1,4 +1,4 @@
-export function calculateExpression(espression) {
+export function calculateExpression(expression) {
 
     try{
         const numbers = expression.match(/\d+(\.\d+)?/g);
@@ -7,7 +7,7 @@ export function calculateExpression(espression) {
             throw new Error("Incomplete expression");
         }
 
-        if(/[+*/]{2,}|-{2.}/.test(expression.replace(/\s/g, ""))) {
+        if(/[+*/]{2,}|-{2,}/.test(expression.replace(/\s/g, ""))) {
             throw new Error("Invalid operators");
         }
 
@@ -15,7 +15,11 @@ export function calculateExpression(espression) {
             throw new Error ("Invalid expression");
         }
 
-        const result = Function( '"use strict"; return ()' + expression.replace(/\^/g, "**") + ')') () ;
+        const result = Function(
+            '"use strict"; return (' +
+            expression.replace(/\^/g, "**") +
+            ')'
+        )();
 
         if (!Number.isFinite(result)) {
             throw new Error("Invalid result");
@@ -24,6 +28,7 @@ export function calculateExpression(espression) {
         return Number(result.toFixed(10));
     
     } catch (error) {
+        console.error("Error calculating expression:", error);
         return "Error";
     }
 }
