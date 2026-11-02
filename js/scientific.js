@@ -1,5 +1,19 @@
 export function calculateScientific(action, expression, angleMode) {
 
+    if (action === "pi") {
+        return {
+            reult: Number(Math.PI.toFixed(10)),
+            expression: "π"
+        };
+    }
+
+    if (action === "e") {
+        return {
+            result: Number(Math.E.toFixed(10)),
+            expression: "e"
+        };
+    }
+
     const number = Number(expression);
     let result;
     let historyExpression;
@@ -33,7 +47,7 @@ export function calculateScientific(action, expression, angleMode) {
 
     else if (action == "tan") {
         const angle = angleMode == "DEG"
-            ? number*Math>PI/180
+            ? number * Math.PI/180
             : number;
 
         result =Math.tan(angle);
@@ -67,6 +81,48 @@ export function calculateScientific(action, expression, angleMode) {
         }
     }
 
+    else if(action == "log") {
+        if(number <= 0) {
+            return { result: "Error" };
+        }
+        result = Math.log10(number);
+        historyExpression = `log(${number})`;
+    }
+
+    else if(action == "ln") {
+        if(number <= 0) {
+            return { result: "Error" };
+        }
+        result = Math.log(number);
+        historyExpression = `ln(${number})`;
+    }
+
+    else if (action === "log-base") {
+        if(
+            !Number.isFinite(base)|| base <= 0 || base === 1 || number <= 0
+        ) {
+            return { result: "Error" };
+        }
+
+        result = Math.log(number) / Math.log(base);
+        historyExpression = `log(${number}) base ${base}`;
+    }
+
+    else if (action === "factorial") {
+        if(number < 0 || !Number.isInteger(number)) 
+        {
+            return { result: "Error" };
+        }
+
+        result = 1;
+        
+        for(let i = 2; i <= number; i++) {
+            result *= i;
+        }
+
+        historyExpression = `${number}!`;
+    }
+
     else {
         return { result : "Error" };
     }
@@ -75,7 +131,7 @@ export function calculateScientific(action, expression, angleMode) {
         return { result: "Error" };
     }
 
-    result = Number(result.isFinite(10));
+    result = Number(result.toFixed(10));
 
     return {
         result: result,

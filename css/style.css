@@ -367,7 +367,7 @@ button:focus-visible {
     transform: translateY(-2px);
 }
 
-.histroy-expression {
+.history-expression {
     color: var(--text-secondary);
     font-size: 13px;
     overflow-wrap: anywhere;
