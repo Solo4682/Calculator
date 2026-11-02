@@ -1,5 +1,5 @@
-export function calculateScientific(action, expression, angleMode) {
-
+export function calculateScientific(action, expression, angleMode, base = null) {
+  
     if (action === "pi") {
         return {
             reult: Number(Math.PI.toFixed(10)),
